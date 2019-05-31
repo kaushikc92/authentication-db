@@ -1,24 +1,27 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: postgres
+  name: authentication-db
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: postgres
+        app: authentication-db
     spec:
       containers:
-        - name: postgres
-          image: postgres:10.4
+        - name: authentication-db
+          image: postgres:latest 
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: authentication-db-config
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: postgredb
+              name: authenticationdb
       volumes:
-        - name: postgredb
+        - name: authenticationdb
           persistentVolumeClaim:
-            claimName: postgres-pv-claim
+            claimName: authentication-pv-claim
