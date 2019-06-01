@@ -20,8 +20,8 @@ spec:
                 name: authentication-db-config
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: authenticationdb
+              name: authentication-db
       volumes:
-        - name: authenticationdb
+        - name: authentication-db
           persistentVolumeClaim:
             claimName: authentication-pv-claim
